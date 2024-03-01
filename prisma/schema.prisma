@@ -6,3 +6,24 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Tag {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  tasks Task[]
+
+  @@map("tags")
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  title String
+  isCompleted Boolean
+  createdAt DateTime @default(now())
+
+  tagId Int?
+  tag Tag? @relation(fields: [tagId], references: [id])
+
+  @@map("tasks")
+}
