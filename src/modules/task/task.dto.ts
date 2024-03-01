@@ -1,7 +1,7 @@
 export type TaskDTO = {
   id?: number;
   title: string;
-  isCompleted: boolean;
+  isCompleted?: boolean;
   createdAt?: string;
   tagId?: number;
 };

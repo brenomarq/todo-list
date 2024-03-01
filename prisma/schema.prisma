@@ -19,7 +19,7 @@ model Tag {
 model Task {
   id Int @id @default(autoincrement())
   title String
-  isCompleted Boolean
+  isCompleted Boolean @default(false)
   createdAt DateTime @default(now())
 
   tagId Int?
