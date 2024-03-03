@@ -5,3 +5,7 @@ export type TaskDTO = {
   createdAt?: string;
   tagId?: number;
 };
+
+export type Filter = {
+  isCompleted: string;
+};

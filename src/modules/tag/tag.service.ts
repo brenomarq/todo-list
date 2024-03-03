@@ -20,17 +20,20 @@ export class TagService {
 
   async findUnique(id: number) {
     try {
-      const task = await this.prisma.tag.findUnique({
+      const tag = await this.prisma.tag.findUnique({
+        include: {
+          tasks: true,
+        },
         where: {
           id,
         },
       });
 
-      if (!task) {
+      if (!tag) {
         return { error: 'Tag could not be found, because it does not exist.' };
       }
 
-      return task;
+      return tag;
     } catch (err: any) {
       return { error: 'Could not find the specified task.' };
     }

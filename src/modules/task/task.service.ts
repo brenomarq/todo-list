@@ -18,9 +18,13 @@ export class TaskService {
     }
   }
 
-  async findAll() {
+  async findAll(isCompleted: boolean | null) {
     try {
-      const tasks = await this.prisma.task.findMany();
+      const tasks = await this.prisma.task.findMany({
+        where: {
+          isCompleted,
+        },
+      });
 
       return tasks;
     } catch (err: any) {
@@ -72,6 +76,16 @@ export class TaskService {
       return task;
     } catch (err: any) {
       return { error: 'Could not delete the specified task' };
+    }
+  }
+
+  async deleteAll() {
+    try {
+      const deletedTasks = await this.prisma.task.deleteMany();
+
+      return deletedTasks;
+    } catch (err: any) {
+      return { error: 'Could not delete all the tasks' };
     }
   }
 }

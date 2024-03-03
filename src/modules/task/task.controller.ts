@@ -6,9 +6,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { Parameter } from '../tag/tag.dto';
-import { TaskDTO } from './task.dto';
+import { Filter, TaskDTO } from './task.dto';
 import { TaskService } from './task.service';
 
 @Controller('task')
@@ -21,8 +22,10 @@ export class TaskController {
   }
 
   @Get()
-  async findAll() {
-    return this.taskService.findAll();
+  async findAll(@Query() query: Filter) {
+    const filter = query.isCompleted === 'true' ? true : false;
+
+    return this.taskService.findAll(filter);
   }
 
   @Get(':id')
@@ -44,5 +47,10 @@ export class TaskController {
     const taskId = parseInt(index.id);
 
     return this.taskService.delete(taskId);
+  }
+
+  @Delete()
+  async deleteAll() {
+    return this.taskService.deleteAll();
   }
 }
